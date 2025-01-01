@@ -1,0 +1,129 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 1,
+    "pending": 0,
+    "failures": 1,
+    "start": "2024-12-30T07:04:27.624Z",
+    "end": "2024-12-30T07:04:28.002Z",
+    "duration": 378,
+    "testsRegistered": 2,
+    "passPercent": 50,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "58bc751c-ae56-4f5c-8666-1161a8d7989b",
+      "title": "",
+      "fullFile": ".github/workflows/cypress/e2e/test.cy.js",
+      "file": ".github/workflows/cypress/e2e/test.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "e4484c56-1d76-49ca-83d8-d71365dd299d",
+          "title": "Basic Server Tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should return the correct welcome message",
+              "fullTitle": "Basic Server Tests should return the correct welcome message",
+              "timedOut": null,
+              "duration": 39,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Visit the root URL\ncy.request(\"GET\", \"/\").then(response => {\n  // Check the status code\n  expect(response.status).to.equal(200);\n  // Check the response body\n  expect(response.body).to.equal(\"Welcome to the world!\");\n});",
+              "err": {},
+              "uuid": "8f755316-87db-4b78-a3b3-742835e9978d",
+              "parentUUID": "e4484c56-1d76-49ca-83d8-d71365dd299d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should return the correct welcome message",
+              "fullTitle": "Basic Server Tests should return the correct welcome message",
+              "timedOut": null,
+              "duration": 113,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "// Visit the root URL\ncy.request(\"GET\", \"/\").then(response => {\n  // Check the status code\n  expect(response.status).to.equal(200);\n  // Check the response body\n  expect(response.body).to.equal(\"Welcome to the world! .\");\n});",
+              "err": {
+                "message": "AssertionError: expected 'Welcome to the world!' to equal 'Welcome to the world! .'",
+                "estack": "AssertionError: expected 'Welcome to the world!' to equal 'Welcome to the world! .'\n    at Context.eval (webpack:///./cypress/e2e/test.cy.js:20:31)",
+                "diff": "- 'Welcome to the world!'\n+ 'Welcome to the world! .'\n"
+              },
+              "uuid": "27d790f2-d6a4-47f1-8c5b-d4c5e763eb7d",
+              "parentUUID": "e4484c56-1d76-49ca-83d8-d71365dd299d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "8f755316-87db-4b78-a3b3-742835e9978d"
+          ],
+          "failures": [
+            "27d790f2-d6a4-47f1-8c5b-d4c5e763eb7d"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 152,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": ".github/workflows/cypress/results",
+        "overwrite": true,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

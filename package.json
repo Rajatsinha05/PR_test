@@ -1,0 +1,29 @@
+{
+  "name": "testing",
+  "version": "1.0.0",
+  "description": "A project for testing Cypress and Jest integrations",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd _test && npx cypress run",
+    "cypress:open": "cd _test && npx cypress open",
+    "cypress:run:workflow": "npx cypress run --config-file .github/workflows/cypress.config.js || true",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "testing",
+    "cypress",
+    "jest",
+    "express"
+  ],
+  "author": "Rajat Sinha",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "cypress": "^13.17.0",
+    "jest": "^29.7.0",
+    "mochawesome": "^7.1.3"
+  }
+}

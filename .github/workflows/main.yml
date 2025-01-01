@@ -1,0 +1,60 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18" # Use a stable Node.js version
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Step 4: Run a test file
+      - name: Run Test File
+        run: node .github/workflows/loadTest.js
+
+      # Step 5: Start the server
+      - name: Start Server
+        run: npm start &
+        env:
+          PORT: 8090
+
+      # Step 6: Wait for the server to be ready (max 2 minutes)
+      - name: Wait for Server
+        run: npx wait-on http://localhost:8090 --timeout 120000
+
+      # Step 7: Run Cypress tests
+      - name: Run Cypress Tests
+        run: npm run cypress:run:workflow || true
+
+      # Step 8: Generate Link to Files at Commit
+      - name: Generate Link to Files
+        id: generate_link
+        run: |
+          REPO_URL=$(git config --get remote.origin.url)
+          COMMIT_SHA=$(git rev-parse HEAD)
+          REPO_URL_CLEAN="${REPO_URL%.git}"
+          LINK="$REPO_URL_CLEAN/tree/$COMMIT_SHA"
+          echo "Browse the repository files at this commit: $LINK"
+          echo "::set-output name=commit_files_link::$LINK"
+
+      # Step 9: Run `index.js` Script with GitHub Link
+      - name: Run Index.js
+        run: node .github/workflows/index.js ${{ steps.generate_link.outputs.commit_files_link }}
