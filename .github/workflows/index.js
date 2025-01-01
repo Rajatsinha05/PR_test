@@ -4,7 +4,8 @@ const path = require("path");
 // Resolve paths
 const metadataPath = path.resolve(__dirname, "metadata.json");
 const resultPath = path.resolve(
-  ".github/workflows/cypress/results/mochawesome.json"
+  __dirname,
+  "./cypress/results/mochawesome.json"
 );
 const gitHubLink = process.argv[2];
 
@@ -51,6 +52,7 @@ function processTestResult(filePath, token, uniqueCode, pId) {
 
     try {
       const testData = JSON.parse(data);
+      console.log("testData: ", testData);
 
       // Convert to NodeTestResult
       const nodeTestResult = parseToNodeTestResult(testData);
@@ -59,9 +61,12 @@ function processTestResult(filePath, token, uniqueCode, pId) {
       nodeTestResult.student = { id: uniqueCode };
       nodeTestResult.githubLink = gitHubLink;
       nodeTestResult.cyProject = pId;
+      console.log("nodeTestResult: ", nodeTestResult);
       // Post the result to the backend
       postResult(nodeTestResult, token);
-    } catch (parseError) {}
+    } catch (parseError) {
+      //
+    }
   });
 }
 
@@ -133,8 +138,11 @@ async function postResult(data, token) {
       }
     );
 
+    console.log("response: ", response);
     if (!response.ok) {
       throw new Error(`Failed to post result: ${response.statusText}`);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log("error: ", error);
+  }
 }
